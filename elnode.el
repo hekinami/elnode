@@ -1116,12 +1116,12 @@ is ignored."
            :name name
            :buffer an-buf
            :server (if (numberp port) 300 't)
-           :nowait 't
+           :nowait nil
            :host (cond
-                   ((not (numberp port)) nil)
-                   ((equal host "localhost") 'local)
-                   ((equal host "*") nil)
-                   (t host))
+                  ((not (numberp port)) nil)
+                  ((equal host "localhost") 'local)
+                  ((equal host "*") nil)
+                  (t host))
            :coding '(raw-text-unix . raw-text-unix)
            :family (if (numberp port) 'ipv4 'local)
            :service (if (numberp port) port unix-sock-file-name)
@@ -1130,9 +1130,9 @@ is ignored."
            :log 'elnode/proc-log))
          (proc (apply 'make-network-process proc-args)))
     (elnode/con-put proc
-      :elnode-service-map service-mappings
-      :elnode-http-handler request-handler
-      :elnode-defer-mode defer-mode)
+                    :elnode-service-map service-mappings
+                    :elnode-http-handler request-handler
+                    :elnode-defer-mode defer-mode)
     proc))
 
 ;;;###autoload
